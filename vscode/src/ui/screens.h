@@ -18,9 +18,9 @@ typedef struct _objects_t {
     lv_obj_t *userwidget_motorinfo_button_switch_run_1;
     lv_obj_t *obj2;
     lv_obj_t *obj3;
-    lv_obj_t *mainpage_textarea_sv;
     lv_obj_t *obj4;
     lv_obj_t *obj5;
+    lv_obj_t *mainpage_textarea_sv;
     lv_obj_t *obj6;
     lv_obj_t *svinput_textarea_sv_keyboard_1;
     lv_obj_t *textarea_config_sensor_top_left_x;
@@ -36,6 +36,9 @@ typedef struct _objects_t {
     lv_obj_t *obj9;
     lv_obj_t *obj10;
     lv_obj_t *obj11;
+    lv_obj_t *panel_pv_1;
+    lv_obj_t *panel_pv_2;
+    lv_obj_t *panel_pv_3;
     lv_obj_t *mainpage_roller_mode;
     lv_obj_t *obj12;
     lv_obj_t *obj13;
