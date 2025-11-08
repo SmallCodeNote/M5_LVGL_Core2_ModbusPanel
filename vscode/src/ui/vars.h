@@ -23,6 +23,8 @@ enum FlowGlobalVariables {
 
 // Native global variables
 
+extern const char *get_var_t();
+extern void set_var_t(const char *value);
 extern int32_t get_var_mv();
 extern void set_var_mv(int32_t value);
 extern const char *get_var_mvunit();
@@ -45,6 +47,14 @@ extern int32_t get_var_rem_rate();
 extern void set_var_rem_rate(int32_t value);
 extern bool get_var_run();
 extern void set_var_run(bool value);
+extern bool get_var_free_switch();
+extern void set_var_free_switch(bool value);
+extern float get_var_info_1();
+extern void set_var_info_1(float value);
+extern float get_var_info_2();
+extern void set_var_info_2(float value);
+extern float get_var_info_3();
+extern void set_var_info_3(float value);
 extern int32_t get_var_sensor_bottom_right_x();
 extern void set_var_sensor_bottom_right_x(int32_t value);
 extern int32_t get_var_sensor_bottom_right_y();
