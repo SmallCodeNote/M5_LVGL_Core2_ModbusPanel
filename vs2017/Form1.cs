@@ -157,6 +157,16 @@ namespace TextReplaceCopy
                     continue;
                 }
 
+                // extern float get_var_xxx();
+                Match mFloat = Regex.Match(trimmed, @"extern\s+float\s+(\w+)\s*\(\s*\);");
+                if (mFloat.Success)
+                {
+                    string func = mFloat.Groups[1].Value;
+                    string varName = func.Replace("get_var_", "");
+                    sb.AppendLine($"float {varName}; extern \"C\" float {func}() {{ return {varName}; }}");
+                    continue;
+                }
+
                 // extern bool get_var_xxx();
                 Match mBool = Regex.Match(trimmed, @"extern\s+bool\s+(\w+)\s*\(\s*\);");
                 if (mBool.Success)
@@ -185,6 +195,19 @@ namespace TextReplaceCopy
                     string param = mSetInt.Groups[2].Value;
                     string varName = func.Replace("set_var_", "");
                     sb.AppendLine($"extern \"C\" void {func}(int32_t {param}) {{ {varName} = {param}; }}");
+                    sb.AppendLine("");
+                    continue;
+                }
+
+                // extern void set_var_xxx(float value);
+                Match mSetFloat = Regex.Match(trimmed, @"extern\s+void\s+(set_var_\w+)\s*\(\s*float\s+(\w+)\s*\);");
+                if (mSetFloat.Success)
+                {
+                    string func = mSetFloat.Groups[1].Value;
+                    string param = mSetFloat.Groups[2].Value;
+                    string varName = func.Replace("set_var_", "");
+                    sb.AppendLine($"extern \"C\" void {func}(float {param}) {{ {varName} = {param}; }}");
+                    sb.AppendLine("");
                     continue;
                 }
 
@@ -196,6 +219,7 @@ namespace TextReplaceCopy
                     string param = mSetStr.Groups[2].Value;
                     string varName = func.Replace("set_var_", "");
                     sb.AppendLine($"extern \"C\" void {func}(const char *{param}) {{ {varName} = {param}; }}");
+                    sb.AppendLine("");
                     continue;
                 }
 
@@ -207,6 +231,7 @@ namespace TextReplaceCopy
                     string param = mSetBool.Groups[2].Value;
                     string varName = func.Replace("set_var_", "");
                     sb.AppendLine($"extern \"C\" void {func}(bool {param}) {{ {varName} = {param}; }}");
+                    sb.AppendLine("");
                     continue;
                 }
             }
