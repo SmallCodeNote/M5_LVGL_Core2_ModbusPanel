@@ -16,7 +16,6 @@ bool inUpdateCall = false;
 
 ModbusRTU mb;
 
-
 bool buff_run;
 bool buff_freeSwitch;
 uint32_t buff_mv;
@@ -26,7 +25,6 @@ uint32_t buff_remRate;
 uint32_t buff_info_1;
 uint32_t buff_info_2;
 uint32_t buff_info_3;
-
 
 bool prev_run;
 bool prev_freeSwitch;
@@ -38,9 +36,9 @@ uint32_t prev_info_1;
 uint32_t prev_info_2;
 uint32_t prev_info_3;
 
-void setup_modbus_reg(){
-
-Serial2.begin(MODBUS_BAUD, SERIAL_8E1, MODBUS_RX_PIN, MODBUS_TX_PIN);
+void setup_modbus_reg()
+{
+  Serial2.begin(MODBUS_BAUD, SERIAL_8E1, MODBUS_RX_PIN, MODBUS_TX_PIN);
   mb.begin(&Serial2);
   mb.slave(SLAVE_ID);
   mb.addHreg(REG_RUN, 0, REG_COUNT);
@@ -61,9 +59,7 @@ Serial2.begin(MODBUS_BAUD, SERIAL_8E1, MODBUS_RX_PIN, MODBUS_TX_PIN);
   prev_info_1 = mb.Hreg(REG_INFO_1);
   prev_info_2 = mb.Hreg(REG_INFO_2);
   prev_info_3 = mb.Hreg(REG_INFO_3);
-
 }
-
 
 void setup()
 {
@@ -152,6 +148,8 @@ void loop()
   ui_tick();
   vTaskDelay(waitCountUnit);
   waitCountSum += waitCountUnit;
+  
+  mb.task();
   update_modbus_reg();
-
+  
 }

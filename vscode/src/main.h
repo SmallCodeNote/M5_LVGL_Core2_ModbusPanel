@@ -30,7 +30,6 @@ enum HoldingRegister {
     REG_COUNT
 };
 
-
 // Modbus object
 extern ModbusRTU mb;
 
