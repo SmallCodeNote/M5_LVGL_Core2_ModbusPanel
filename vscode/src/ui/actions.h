@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
 extern void action_sensor_param_update(lv_event_t * e);
+extern void action_send_message(lv_event_t * e);
 
 
 #ifdef __cplusplus

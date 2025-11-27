@@ -1,18 +1,28 @@
 #ifndef MY_MAIN_H
 #define MY_MAIN_H
 
+//Core2 Port.C
+#define MODBUS_TX_PIN 14 //(HY2.0-4P/Yellow)Connect RS485 module Rx
+#define MODBUS_RX_PIN 13 //(HY2.0-4P/White)Connect RS485 module Tx
+#define MODBUS_DE_PIN 20 //Dammy PIN attach Interrupt RS485 loop back clear code (M5Core2 N.C.)
+
+//CoreS3 series Port.C
+//#define MODBUS_TX_PIN 17 //(HY2.0-4P/Yellow)Connect RS485 module Rx
+//#define MODBUS_RX_PIN 18 //(HY2.0-4P/White)Connect RS485 module Tx
+
 #include <ModbusRTU.h>
 
-#define MODBUS_TX_PIN 25
-#define MODBUS_RX_PIN 34
-#define MODBUS_BAUD 115200
+//#define MODBUS_BAUD 115200
+#define MODBUS_BAUD 9600
 
 extern bool inUpdateCall;
+extern uint32_t interval_ToF;
+extern uint32_t interval_US;
 
 // ===== Modbus config =====
 #define SLAVE_ID 2
 
-// レジスタ定義を enum で管理
+// Register adress offset enum
 enum HoldingRegister {
     REG_RUN = 0,
     REG_FREE,
@@ -26,7 +36,7 @@ enum HoldingRegister {
     REG_INFO_1,
     REG_INFO_2,
     REG_INFO_3,
-    T,
+    REG_TIMECODE,
     REG_COUNT
 };
 

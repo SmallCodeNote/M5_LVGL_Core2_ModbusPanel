@@ -1,8 +1,8 @@
 #include <string>
 #include "ui/vars.h"
 
-std::string t; extern "C" const char *get_var_t() { return t.c_str(); }
-extern "C" void set_var_t(const char *value) { t = value; }
+std::string timecode; extern "C" const char *get_var_timecode() { return timecode.c_str(); }
+extern "C" void set_var_timecode(const char *value) { timecode = value; }
 
 int32_t mv; extern "C" int32_t get_var_mv() { return mv; }
 extern "C" void set_var_mv(int32_t value) { mv = value; }
