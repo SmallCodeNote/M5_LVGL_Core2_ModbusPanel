@@ -26,6 +26,12 @@ lv_style_t *get_style_style_button_switch_MAIN_CHECKED();
 void add_style_style_button_switch(lv_obj_t *obj);
 void remove_style_style_button_switch(lv_obj_t *obj);
 
+// Style: style_button_apply
+lv_style_t *get_style_style_button_apply_MAIN_DEFAULT();
+lv_style_t *get_style_style_button_apply_MAIN_CHECKED();
+void add_style_style_button_apply(lv_obj_t *obj);
+void remove_style_style_button_apply(lv_obj_t *obj);
+
 
 
 #ifdef __cplusplus

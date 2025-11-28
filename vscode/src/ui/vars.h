@@ -18,7 +18,8 @@ enum FlowGlobalVariables {
     FLOW_GLOBAL_VARIABLE_CONFIG_TARGET_ITEM_INDEX = 0,
     FLOW_GLOBAL_VARIABLE_CONFIG_TARGET_ITEM_LIST = 1,
     FLOW_GLOBAL_VARIABLE_SENSOR_CONFIG_TARGET_INDEX = 2,
-    FLOW_GLOBAL_VARIABLE_SENSOR_CONFIG_TARGET_ITEM_LIST = 3
+    FLOW_GLOBAL_VARIABLE_SENSOR_CONFIG_TARGET_ITEM_LIST = 3,
+    FLOW_GLOBAL_VARIABLE_SENSOR_CONFIG_UPDATE = 4
 };
 
 // Native global variables
@@ -59,12 +60,14 @@ extern int32_t get_var_sensor_bottom_right_x();
 extern void set_var_sensor_bottom_right_x(int32_t value);
 extern int32_t get_var_sensor_bottom_right_y();
 extern void set_var_sensor_bottom_right_y(int32_t value);
-extern int32_t get_var_sensor_interval();
-extern void set_var_sensor_interval(int32_t value);
+extern int32_t get_var_tof_sensor_interval();
+extern void set_var_tof_sensor_interval(int32_t value);
 extern int32_t get_var_sensor_top_left_x();
 extern void set_var_sensor_top_left_x(int32_t value);
 extern int32_t get_var_sensor_top_left_y();
 extern void set_var_sensor_top_left_y(int32_t value);
+extern int32_t get_var_us_sensor_interval();
+extern void set_var_us_sensor_interval(int32_t value);
 
 
 #ifdef __cplusplus

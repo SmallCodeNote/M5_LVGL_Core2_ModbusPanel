@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <M5Unified.h>
+#include <Unit_Sonic.h>
 #include <VL53L1X.h>
 #include "ui/vars.h"
 #include "ui/screens.h"
@@ -9,11 +10,12 @@
 
 extern lv_chart_series_t *chart_sensor_view_ser1;
 
+extern SONIC_I2C usSensor;
 extern VL53L1X tofSensor;
 
-void setupSensorROI(int topLeftX, int topLeftY, int bottomRightX, int bottomRightY);
+void setupTofSensorROI(int topLeftX, int topLeftY, int bottomRightX, int bottomRightY);
 
-void setupSensor();
+void setupTofSensor(TwoWire* bus);
 
 struct SensorParam
 {
@@ -24,7 +26,9 @@ struct SensorParam
     int8_t topLeftY;
     int8_t bottomRightX;
     int8_t bottomRightY;
-    int32_t interval;
+    int32_t interval_ToF;
+    int32_t interval_US;
+
 };
 
 extern SensorParam sensorParam;
@@ -34,6 +38,7 @@ extern int EEPROM_SIZE_SPRM;
 void saveEEPROM(const SensorParam &SPRM);
 SensorParam loadSPRMfromEEPROM();
 
+void readUI(SensorParam &params);
 void updateUI(const SensorParam &params);
 
 #endif

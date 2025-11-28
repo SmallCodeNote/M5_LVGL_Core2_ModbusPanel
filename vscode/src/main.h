@@ -16,8 +16,6 @@
 #define MODBUS_BAUD 9600
 
 extern bool inUpdateCall;
-extern uint32_t interval_ToF;
-extern uint32_t interval_US;
 
 // ===== Modbus config =====
 #define SLAVE_ID 2

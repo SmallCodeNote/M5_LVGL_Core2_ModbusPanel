@@ -1,10 +1,11 @@
 #include <Arduino.h>
 #include <M5Unified.h>
 #include <Unit_Sonic.h>
+#include <EEPROM.h>
 
 #include "driver/gpio.h"
 
-#include "tof_sensor_control.h"
+#include "sensor_control.h"
 
 #include "ui/ui.h"
 #include "ui/eez-flow.h"
@@ -16,8 +17,6 @@
 #include "main.h"
 
 bool inUpdateCall = false;
-
-SONIC_I2C usSensor;
 
 ModbusRTU mb;
 
@@ -87,12 +86,13 @@ void setup()
   setup_modbus_reg(SLAVE_ID);
 
   // SensorSetup =================
+  sensorParam = loadSPRMfromEEPROM();
+
   usSensor.begin(&Wire, 0x57, SDA, SCL, 100000L);
-  tofSensorParam = loadSPRMfromEEPROM();
   setupTofSensor(&Wire);
 
-  updateUI(tofSensorParam);
-  saveEEPROM(tofSensorParam);
+  updateUI(sensorParam);
+  saveEEPROM(sensorParam);
 }
 
 void update_modbus_reg()
@@ -156,9 +156,7 @@ void update_modbus_reg()
   }
 }
 
-uint32_t interval_ToF = 1000;
-uint32_t interval_US = 1000;
-uint32_t interval_I2C_AccessInt = 100;
+uint32_t interval_I2C_AccessInt = 10;
 uint32_t interval_UI = 33;
 
 uint64_t lastMillis_ToF = 0;
@@ -179,7 +177,7 @@ void loop()
   }
 
   Millis = millis();
-  if (Millis - lastMillis_US > interval_US && Millis - lastMillis_I2C_Access > interval_I2C_AccessInt)
+  if (Millis - lastMillis_US > sensorParam.interval_US && Millis - lastMillis_I2C_Access > interval_I2C_AccessInt)
   {
     Wire.beginTransmission(0x57);
     int32_t d = (int32_t)usSensor.getDistance();
@@ -193,9 +191,9 @@ void loop()
   }
 
   Millis = millis();
-  if (Millis - lastMillis_ToF > interval_ToF && Millis - lastMillis_I2C_Access > interval_I2C_AccessInt)
+  if (Millis - lastMillis_ToF > sensorParam.interval_ToF && Millis - lastMillis_I2C_Access > interval_I2C_AccessInt)
   {
-    Wire.beginTransmission(0b0101001);
+    Wire.beginTransmission(0x29);
     int32_t d = (int32_t)tofSensor.read();
     Wire.endTransmission();
     Serial.printf("[%d] %d", Millis, d);

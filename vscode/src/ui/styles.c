@@ -108,6 +108,50 @@ void remove_style_style_button_switch(lv_obj_t *obj) {
 };
 
 //
+// Style: style_button_apply
+//
+
+void init_style_style_button_apply_MAIN_DEFAULT(lv_style_t *style) {
+    lv_style_set_bg_color(style, lv_color_hex(0xff8a8a8a));
+};
+
+lv_style_t *get_style_style_button_apply_MAIN_DEFAULT() {
+    static lv_style_t *style;
+    if (!style) {
+        style = lv_malloc(sizeof(lv_style_t));
+        lv_style_init(style);
+        init_style_style_button_apply_MAIN_DEFAULT(style);
+    }
+    return style;
+};
+
+void init_style_style_button_apply_MAIN_CHECKED(lv_style_t *style) {
+    lv_style_set_bg_color(style, lv_color_hex(0xfff44336));
+};
+
+lv_style_t *get_style_style_button_apply_MAIN_CHECKED() {
+    static lv_style_t *style;
+    if (!style) {
+        style = lv_malloc(sizeof(lv_style_t));
+        lv_style_init(style);
+        init_style_style_button_apply_MAIN_CHECKED(style);
+    }
+    return style;
+};
+
+void add_style_style_button_apply(lv_obj_t *obj) {
+    (void)obj;
+    lv_obj_add_style(obj, get_style_style_button_apply_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_add_style(obj, get_style_style_button_apply_MAIN_CHECKED(), LV_PART_MAIN | LV_STATE_CHECKED);
+};
+
+void remove_style_style_button_apply(lv_obj_t *obj) {
+    (void)obj;
+    lv_obj_remove_style(obj, get_style_style_button_apply_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_remove_style(obj, get_style_style_button_apply_MAIN_CHECKED(), LV_PART_MAIN | LV_STATE_CHECKED);
+};
+
+//
 //
 //
 
@@ -118,6 +162,7 @@ void add_style(lv_obj_t *obj, int32_t styleIndex) {
         add_style_style_button_label,
         add_style_style_textarea_inputnum,
         add_style_style_button_switch,
+        add_style_style_button_apply,
     };
     add_style_funcs[styleIndex](obj);
 }
@@ -129,6 +174,7 @@ void remove_style(lv_obj_t *obj, int32_t styleIndex) {
         remove_style_style_button_label,
         remove_style_style_textarea_inputnum,
         remove_style_style_button_switch,
+        remove_style_style_button_apply,
     };
     remove_style_funcs[styleIndex](obj);
 }
